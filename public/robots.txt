@@ -1,0 +1,40 @@
+# Levryn E-Commerce - Robots.txt
+# Premium Luxury Perfumes - Pakistan
+
+User-agent: *
+Allow: /
+
+# Allow all important pages
+Allow: /products
+Allow: /product/
+Allow: /about
+Allow: /contact
+Allow: /faq
+Allow: /premium-lineup
+Allow: /budget-series
+Allow: /corporate-orders
+Allow: /track-order
+
+# Sitemap location
+Sitemap: https://www.shoplevryn.com/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Disallow admin and checkout pages from indexing
+Disallow: /levryn-admin
+Disallow: /admin-levryn-dashboard
+Disallow: /levryn-auth-gate
+Disallow: /levryn-product-management
+Disallow: /checkout
+Disallow: /cart
+
+# Allow Google specific
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Allow Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1

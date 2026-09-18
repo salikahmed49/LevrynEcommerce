@@ -1,0 +1,21 @@
+{
+  "short_name": "Levryn",
+  "name": "Levryn - Buy Luxury Perfumes Online Pakistan",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#2F4F4F",
+  "background_color": "#F8F9F5",
+  "description": "Buy premium luxury perfumes online in Pakistan. Designer fragrance renditions from Rs. 1,200. Over 27+ handcrafted fragrances. Fast delivery across Pakistan.",
+  "categories": ["shopping", "lifestyle"],
+  "lang": "en-PK",
+  "dir": "ltr",
+  "scope": "/",
+  "orientation": "any"
+}

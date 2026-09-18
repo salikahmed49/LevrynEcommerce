@@ -1,0 +1,21 @@
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+}
+
+.main-content {
+  flex: 1;
+  padding-top: 75px; /* Account for 60px header + reduced marquee */
+  min-height: calc(100vh - 75px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: 70px;
+    min-height: calc(100vh - 70px);
+  }
+}
+
