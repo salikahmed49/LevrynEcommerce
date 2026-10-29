@@ -1,62 +1,263 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './Footer.css';
+import Link from 'next/link';
+import { Truck, Sparkles, MessageCircle, Mail } from 'lucide-react';
+import { InstagramIcon, FacebookIcon } from './SocialIcons';
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className="footer">
-      <div className="footer-container">
-        <div className="footer-section">
-          <h3>Levryn</h3>
-          <p>Luxury perfumes crafted to elevate your senses. Experience the essence of elegance and sophistication. Pakistan's premier destination for designer fragrance renditions.</p>
+    <footer
+      style={{
+        backgroundColor: '#1E2B28',
+        color: '#E8ECEB',
+        paddingTop: '64px',
+        paddingBottom: '40px',
+        borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+        marginTop: '80px',
+      }}
+    >
+      <div className="container">
+        {/* Top Feature Strip */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gap: '24px',
+            paddingBottom: '48px',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+            marginBottom: '48px',
+          }}
+        >
+          <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
+            <Sparkles size={24} color="#C5A059" style={{ flexShrink: 0 }} />
+            <div>
+              <h4 style={{ color: '#FFFFFF', fontSize: '1rem', marginBottom: '4px' }}>
+                Extrait de Parfum
+              </h4>
+              <p style={{ fontSize: '0.82rem', color: '#A2B1AD' }}>
+                Artisanal formulations handcrafted with premium fragrance oils.
+              </p>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
+            <Truck size={24} color="#C5A059" style={{ flexShrink: 0 }} />
+            <div>
+              <h4 style={{ color: '#FFFFFF', fontSize: '1rem', marginBottom: '4px' }}>
+                Nationwide Courier
+              </h4>
+              <p style={{ fontSize: '0.82rem', color: '#A2B1AD' }}>
+                Dispatched in custom protective packaging and delivered via tracked express courier across Karachi, Lahore, Islamabad & all Pakistan.
+              </p>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
+            <MessageCircle size={24} color="#C5A059" style={{ flexShrink: 0 }} />
+            <div>
+              <h4 style={{ color: '#FFFFFF', fontSize: '1rem', marginBottom: '4px' }}>
+                Personalized Care
+              </h4>
+              <p style={{ fontSize: '0.82rem', color: '#A2B1AD' }}>
+                Direct consultation and responsive support via WhatsApp at +92 327 2332833.
+              </p>
+            </div>
+          </div>
         </div>
-        <div className="footer-section">
-          <h4>Shop</h4>
-          <Link to="/products">All Products</Link>
-          <Link to="/premium-lineup">Premium Collection</Link>
-          <Link to="/budget-series">Budget Series</Link>
-          <Link to="/corporate-orders">Corporate Orders</Link>
+
+        {/* Links Grid */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '40px',
+            marginBottom: '48px',
+          }}
+        >
+          {/* Brand Col */}
+          <div style={{ maxWidth: '340px' }}>
+            <span
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: '1.9rem',
+                letterSpacing: '0.12em',
+                color: '#FFFFFF',
+                display: 'block',
+                marginBottom: '12px',
+              }}
+            >
+              LEVRYN
+            </span>
+            <p style={{ fontSize: '0.85rem', color: '#A2B1AD', lineHeight: 1.6 }}>
+              Founded by Salik Ahmed Bhatti. Handcrafted in Pakistan, creating master renditions and
+              original creations that honor fine perfumery traditions.
+            </p>
+          </div>
+
+          {/* Navigation */}
+          <div>
+            <h4
+              style={{
+                color: '#FFFFFF',
+                fontSize: '0.9rem',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                marginBottom: '16px',
+              }}
+            >
+              The Shop
+            </h4>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <li>
+                <Link href="/shop" style={{ color: '#A2B1AD', fontSize: '0.88rem' }}>
+                  Explore All Perfumes
+                </Link>
+              </li>
+              <li>
+                <Link href="/shop" style={{ color: '#A2B1AD', fontSize: '0.88rem' }}>
+                  Signature Extraits
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" style={{ color: '#A2B1AD', fontSize: '0.88rem' }}>
+                  Artisanal Story
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Customer Care */}
+          <div>
+            <h4
+              style={{
+                color: '#FFFFFF',
+                fontSize: '0.9rem',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                marginBottom: '16px',
+              }}
+            >
+              Customer Care
+            </h4>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <li>
+                <Link href="/about" style={{ color: '#A2B1AD', fontSize: '0.88rem' }}>
+                  About Levryn
+                </Link>
+              </li>
+              <li>
+                <Link href="/faq" style={{ color: '#A2B1AD', fontSize: '0.88rem' }}>
+                  Shipping & FAQ
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" style={{ color: '#A2B1AD', fontSize: '0.88rem' }}>
+                  Contact Us
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Connect With Us */}
+          <div>
+            <h4
+              style={{
+                color: '#FFFFFF',
+                fontSize: '0.9rem',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                marginBottom: '16px',
+              }}
+            >
+              Connect
+            </h4>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <li>
+                <a
+                  href="https://wa.me/923272332833"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: '#A2B1AD',
+                    fontSize: '0.88rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                  }}
+                >
+                  <MessageCircle size={16} /> WhatsApp: +92 327 2332833
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:info@levryn.com"
+                  style={{
+                    color: '#A2B1AD',
+                    fontSize: '0.88rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                  }}
+                >
+                  <Mail size={16} /> info@levryn.com
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/levryn__/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: '#A2B1AD',
+                    fontSize: '0.88rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                  }}
+                >
+                  <InstagramIcon size={16} /> @levryn__
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.facebook.com/profile.php?id=61580660576348"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: '#A2B1AD',
+                    fontSize: '0.88rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                  }}
+                >
+                  <FacebookIcon size={16} /> Levryn
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div className="footer-section">
-          <h4>Help & Info</h4>
-          <Link to="/faq">FAQ</Link>
-          <Link to="/about">About Us</Link>
-          <Link to="/contact">Contact Us</Link>
-          <Link to="/track-order">Track Order</Link>
-        </div>
-        <div className="footer-section">
-          <h4>Contact</h4>
-          <p><a href="mailto:info@levryn.com">info@levryn.com</a></p>
-          <p><a href="tel:+923272332833">+92 327 2332833</a></p>
-          <p><a href="https://wa.me/923272332833" target="_blank" rel="noopener noreferrer">WhatsApp Support</a></p>
-          <div className="social-links">
-            <a href="https://www.instagram.com/levryn__/" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Instagram">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="2"/>
-                <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2" fill="none"/>
-                <circle cx="18" cy="6" r="1" fill="currentColor"/>
-              </svg>
-            </a>
-            <a href="https://www.facebook.com/profile.php?id=61580660576348" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Facebook">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="currentColor"/>
-              </svg>
-            </a>
+
+        {/* Disclaimer & Copyright */}
+        <div
+          style={{
+            paddingTop: '28px',
+            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '12px',
+            fontSize: '0.75rem',
+            color: '#7E918C',
+          }}
+        >
+          <p>
+            *Disclaimer: Name trademarks and copyrights are properties of their respective manufacturers and/or designers. Levryn has no affiliation with the manufacturers/designers. Our interpretations are original handcrafted formulations inspired by classic olfactory fragrance families.
+          </p>
+          <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+            <span>&copy; {new Date().getFullYear()} Levryn Perfumes. All rights reserved.</span>
+            <span>Canonical Domain: https://www.shoplevryn.com</span>
           </div>
         </div>
       </div>
-      <div className="footer-seo-text">
-        <p>
-          Levryn - Buy luxury perfumes online in Pakistan. Designer fragrance renditions of Chanel, Dior, Creed, Amouage & more. 
-          Delivery across Karachi, Lahore, Islamabad, Rawalpindi, Peshawar, Faisalabad, Multan. 
-          Affordable premium scents from Rs. 1,200.
-        </p>
-      </div>
-      <div className="footer-bottom">
-        <p>&copy; 2026 Levryn. All rights reserved. | <Link to="/faq" style={{ color: 'inherit' }}>FAQ</Link> | <Link to="/about" style={{ color: 'inherit' }}>About</Link> | <Link to="/contact" style={{ color: 'inherit' }}>Contact</Link></p>
-      </div>
     </footer>
   );
-};
-
-export default Footer;
+}

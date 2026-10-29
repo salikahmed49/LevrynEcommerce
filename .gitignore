@@ -10,6 +10,8 @@
 
 # production
 /build
+/.next
+/src_legacy_cra
 
 # misc
 .DS_Store

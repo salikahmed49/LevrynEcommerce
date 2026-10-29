@@ -1,130 +1,250 @@
+'use client';
+
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
-import AnnouncementMarquee from './AnnouncementMarquee';
-import CartDrawer from './CartDrawer';
-import './Header.css';
+import Link from 'next/link';
+import { useCart } from '@/context/CartContext';
+import { ShoppingBag, Search, Menu, X } from 'lucide-react';
 
-const Header = () => {
-  const navigate = useNavigate();
-  const scrollToTop = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); };
-  const { getCartCount } = useCart();
-  const cartCount = getCartCount();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+export default function Header() {
+  const { totalItemCount, openCart } = useCart();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  
-  // Device detection for UI optimization
-  React.useEffect(() => {
-    // We already have a responsive CSS system, but keeping the resize listener 
-    // for future JS-based layout optimizations if needed.
-    const handleResize = () => {
-      // Logic for mobile check removed to fix lint warning
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
+  const leftNavLinks = [
+    { label: 'Shop', href: '/shop' },
+    { label: 'Our Story', href: '/about' },
+  ];
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      setIsSearchOpen(false);
-      closeMenu();
-      navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery('');
-    }
-  };
-
-  // Auto-open cart drawer when item is added
-  React.useEffect(() => {
-    const handleCartAdded = () => {
-      setIsCartOpen(true);
-    };
-    window.addEventListener('levryn:cart:added', handleCartAdded);
-    return () => window.removeEventListener('levryn:cart:added', handleCartAdded);
-  }, []);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
+  const rightNavLinks = [
+    { label: 'Contact', href: '/contact' },
+    { label: 'FAQ', href: '/faq' },
+  ];
 
   return (
-    <header className="header">
-      <AnnouncementMarquee />
-      <div className="header-container">
-        <Link to="/" className="logo" onClick={() => { closeMenu(); scrollToTop(); }}>
-          <h1>Levryn</h1>
-        </Link>
-        
-        <button className="hamburger" onClick={toggleMenu} aria-label="Toggle menu">
-          <span className={isMenuOpen ? 'open' : ''}></span>
-          <span className={isMenuOpen ? 'open' : ''}></span>
-          <span className={isMenuOpen ? 'open' : ''}></span>
-        </button>
-
-        <nav className={`nav ${isMenuOpen ? 'nav-open' : ''}`}>
-          <Link to="/" className="nav-link" onClick={closeMenu}>Home</Link>
-          <Link to="/products" className="nav-link" onClick={closeMenu}>Shop</Link>
-          <Link to="/premium-lineup" className="nav-link" onClick={closeMenu}>Premium</Link>
-          <Link to="/budget-series" className="nav-link" onClick={closeMenu}>Budget</Link>
-          <Link to="/corporate-orders" className="nav-link" onClick={closeMenu}>Corporate</Link>
-          <Link to="/about" className="nav-link" onClick={closeMenu}>About</Link>
-          <Link to="/contact" className="nav-link" onClick={closeMenu}>Contact</Link>
-          
-          <div className="nav-utils">
-            <button 
-              className="nav-util-btn" 
-              onClick={() => { closeMenu(); setIsSearchOpen(true); }}
-              aria-label="Search"
+    <>
+      <header
+        style={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 900,
+          backgroundColor: 'rgba(255, 255, 255, 0.96)',
+          backdropFilter: 'blur(10px)',
+          borderBottom: '1px solid var(--color-border-subtle)',
+          transition: 'all 0.2s ease',
+        }}
+      >
+        <div
+          className="container"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr auto 1fr',
+            alignItems: 'center',
+            height: '74px',
+          }}
+        >
+          {/* Mobile Menu Button + Desktop Nav Left */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', justifySelf: 'start' }}>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle navigation menu"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '8px',
+                color: 'var(--color-text-main)',
+              }}
+              className="mobile-only-btn"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-              </svg>
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
 
-            <button 
-              className="nav-util-btn cart-link" 
-              onClick={() => { closeMenu(); setIsCartOpen(true); }}
+            {/* Desktop Navigation Left */}
+            <nav className="desktop-nav" style={{ display: 'none', gap: '24px' }}>
+              {leftNavLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  style={{
+                    fontSize: '0.85rem',
+                    fontWeight: 500,
+                    letterSpacing: '0.04em',
+                    textTransform: 'uppercase',
+                    color: 'var(--color-text-main)',
+                  }}
+                  className="nav-link"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Centered Brand Logo */}
+          <Link
+            href="/"
+            style={{
+              textAlign: 'center',
+              textDecoration: 'none',
+              padding: '4px 0',
+              justifySelf: 'center',
+            }}
+          >
+            <span
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: '2rem',
+                fontWeight: 600,
+                letterSpacing: '0.12em',
+                color: 'var(--color-primary)',
+                display: 'block',
+                lineHeight: 1,
+              }}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
-              </svg>
-              {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+              LEVRYN
+            </span>
+          </Link>
+
+          {/* Desktop Navigation Right + Utilities */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '16px', justifySelf: 'end' }}>
+            <nav className="desktop-nav" style={{ display: 'none', gap: '24px', marginRight: '8px' }}>
+              {rightNavLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  style={{
+                    fontSize: '0.85rem',
+                    fontWeight: 500,
+                    letterSpacing: '0.04em',
+                    textTransform: 'uppercase',
+                    color: 'var(--color-text-main)',
+                  }}
+                  className="nav-link"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Search Trigger */}
+            <button
+              onClick={() => setSearchOpen(!searchOpen)}
+              aria-label="Search perfumes"
+              style={{
+                padding: '8px',
+                color: 'var(--color-text-main)',
+                display: 'inline-flex',
+                alignItems: 'center',
+              }}
+            >
+              <Search size={20} />
+            </button>
+
+            {/* Cart Drawer Trigger */}
+            <button
+              onClick={openCart}
+              aria-label="Open cart"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '8px 12px',
+                borderRadius: 'var(--radius-sm)',
+                backgroundColor: 'var(--color-primary-subtle)',
+                color: 'var(--color-primary)',
+                position: 'relative',
+              }}
+            >
+              <ShoppingBag size={19} />
+              <span style={{ fontSize: '0.85rem', fontWeight: 600 }}>{totalItemCount}</span>
             </button>
           </div>
-        </nav>
+        </div>
 
-        {isSearchOpen && (
-          <div className="search-modal-overlay" onClick={() => setIsSearchOpen(false)}>
-            <div className="search-modal-content" onClick={(e) => e.stopPropagation()}>
-              <form onSubmit={handleSearchSubmit} className="search-modal-form">
-                <input 
+        {/* Search Bar Dropdown */}
+        {searchOpen && (
+          <div
+            style={{
+              padding: '16px 0',
+              backgroundColor: '#FFFFFF',
+              borderTop: '1px solid var(--color-border-subtle)',
+              borderBottom: '1px solid var(--color-border-subtle)',
+            }}
+          >
+            <div className="container" style={{ maxWidth: '640px' }}>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (searchQuery.trim()) {
+                    window.location.href = `/shop?q=${encodeURIComponent(searchQuery)}`;
+                  }
+                }}
+                style={{ display: 'flex', gap: '8px' }}
+              >
+                <input
+                  type="text"
+                  placeholder="Search by fragrance or notes..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   autoFocus
-                  type="text" 
-                  value={searchQuery} 
-                  onChange={(e) => setSearchQuery(e.target.value)} 
-                  placeholder="What are you looking for?" 
-                  className="search-modal-input"
                 />
-                <button type="button" className="search-modal-close" onClick={() => setIsSearchOpen(false)}>×</button>
+                <button type="submit" className="btn btn-primary" style={{ padding: '0 20px' }}>
+                  Search
+                </button>
               </form>
             </div>
           </div>
         )}
-        
-        {isMenuOpen && <div className="overlay" onClick={closeMenu}></div>}
 
-        <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-      </div>
-    </header>
+        {/* Mobile Navigation Drawer */}
+        {mobileMenuOpen && (
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderBottom: '1px solid var(--color-border)',
+              padding: '20px 24px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '16px',
+            }}
+          >
+            {[...leftNavLinks, ...rightNavLinks].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                style={{
+                  fontSize: '0.98rem',
+                  fontWeight: 500,
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase',
+                  color: 'var(--color-text-main)',
+                  padding: '6px 0',
+                  borderBottom: '1px solid var(--color-border-subtle)',
+                }}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        )}
+      </header>
+
+      {/* Global Responsive Nav Media Queries */}
+      <style jsx>{`
+        @media (min-width: 992px) {
+          .desktop-nav {
+            display: flex !important;
+          }
+          .mobile-only-btn {
+            display: none !important;
+          }
+        }
+        .nav-link:hover {
+          color: var(--color-primary) !important;
+        }
+      `}</style>
+    </>
   );
-};
-
-export default Header;
-
+}
