@@ -347,23 +347,6 @@ export default function ProductDetailPage({ params }) {
                 )}
               </button>
             </div>
-
-            {/* Delivery Reassurance */}
-            <div
-              style={{
-                backgroundColor: 'var(--color-bg-alt)',
-                padding: '14px 16px',
-                borderRadius: 'var(--radius-sm)',
-                border: '1px solid var(--color-border-subtle)',
-                fontSize: '0.8rem',
-                color: 'var(--color-text-muted)',
-                lineHeight: 1.5,
-              }}
-            >
-              <p style={{ margin: 0 }}>
-                Orders over Rs. 3,500 qualify for <strong>Complimentary Nationwide Delivery</strong>.
-              </p>
-            </div>
           </div>
         </div>
 

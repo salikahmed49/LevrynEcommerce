@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'Levryn Luxury Perfumes';
+export const alt = 'Levryn | Artisanal Haute Parfumerie & Handcrafted Extrait de Parfum';
 export const size = {
   width: 1200,
   height: 630,
@@ -13,79 +13,72 @@ export default async function Image() {
     (
       <div
         style={{
-          width: '100%',
           height: '100%',
+          width: '100%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#2F4F4F',
-          backgroundImage: 'radial-gradient(circle at 50% 40%, #3D6666 0%, #1E3434 100%)',
+          backgroundColor: '#1E2B28',
+          backgroundImage:
+            'radial-gradient(circle at 50% 40%, rgba(47, 79, 79, 0.45) 0%, rgba(30, 43, 40, 0.95) 70%)',
           color: '#FFFFFF',
-          padding: '48px',
+          padding: '60px 80px',
           fontFamily: 'serif',
-          position: 'relative',
+          textAlign: 'center',
         }}
       >
-        {/* Subtle Luxury Border Inset */}
+        {/* Brand Monogram / Accent */}
         <div
           style={{
-            position: 'absolute',
-            inset: '24px',
-            border: '1px solid rgba(197, 160, 89, 0.35)',
-            borderRadius: '8px',
-            pointerEvents: 'none',
-          }}
-        />
-
-        <span
-          style={{
-            fontSize: 16,
-            letterSpacing: 4,
+            fontSize: 22,
+            letterSpacing: '0.35em',
             textTransform: 'uppercase',
             color: '#C5A059',
-            marginBottom: 16,
+            marginBottom: 20,
             fontFamily: 'sans-serif',
             fontWeight: 600,
           }}
         >
-          Haute Parfumerie &middot; Pakistan
-        </span>
+          LEVRYN &middot; LUXURY PERFUMES
+        </div>
 
-        <h1
+        {/* Title */}
+        <div
           style={{
-            fontSize: 76,
+            fontSize: 64,
             fontWeight: 500,
-            letterSpacing: 10,
-            color: '#FFFFFF',
-            margin: '0 0 16px 0',
-            textAlign: 'center',
-            lineHeight: 1,
+            lineHeight: 1.15,
+            marginBottom: 24,
+            maxWidth: 900,
+            letterSpacing: '-0.02em',
+            color: '#F9FAFB',
           }}
         >
-          LEVRYN
-        </h1>
+          Artisanal Extrait de Parfum
+        </div>
 
-        <p
+        {/* Subtitle */}
+        <div
           style={{
             fontSize: 24,
-            color: '#D2DFDC',
-            textAlign: 'center',
-            maxWidth: 800,
-            margin: '0 0 28px 0',
+            color: '#D1D5DB',
+            maxWidth: 720,
+            lineHeight: 1.45,
             fontFamily: 'sans-serif',
             fontWeight: 300,
-            lineHeight: 1.4,
+            marginBottom: 36,
           }}
         >
-          Handcrafted Extrait de Parfum &middot; Artisanal Blends
-        </p>
+          Handcrafted in Pakistan &middot; High Concentration Fragrances
+        </div>
 
+        {/* Badges */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: 16,
+            gap: 20,
             backgroundColor: 'rgba(255, 255, 255, 0.08)',
             border: '1px solid rgba(197, 160, 89, 0.4)',
             padding: '10px 28px',
@@ -95,9 +88,9 @@ export default async function Image() {
             fontFamily: 'sans-serif',
           }}
         >
-          <span>From Rs. 1,200</span>
+          <span>From Rs. 1,500</span>
           <span>&middot;</span>
-          <span>Complimentary Delivery over Rs. 3,500</span>
+          <span>Flat Rs. 250 Nationwide Delivery</span>
         </div>
       </div>
     ),
