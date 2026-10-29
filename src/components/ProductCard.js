@@ -159,15 +159,6 @@ export default function ProductCard({ product }) {
             >
               Rs. {defaultSizeObj.price.toLocaleString()}
             </span>
-            <span
-              style={{
-                fontSize: '0.68rem',
-                color: 'var(--color-text-muted)',
-                fontWeight: 500,
-              }}
-            >
-              50ml Flacon
-            </span>
           </div>
 
           <button
