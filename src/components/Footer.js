@@ -145,6 +145,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/track-order" style={{ color: '#A2B1AD', fontSize: '0.88rem' }}>
+                  Track Order
+                </Link>
+              </li>
+              <li>
                 <Link href="/faq" style={{ color: '#A2B1AD', fontSize: '0.88rem' }}>
                   Shipping & FAQ
                 </Link>

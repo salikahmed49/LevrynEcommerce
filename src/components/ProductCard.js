@@ -2,21 +2,21 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
 import PerfumeBottlePlaceholder from './PerfumeBottlePlaceholder';
 import { Plus, Check } from 'lucide-react';
 
 export default function ProductCard({ product }) {
   const { addToCart } = useCart();
-  const [selectedSize, setSelectedSize] = useState('50ml');
+  const [selectedSize] = useState('50ml');
   const [added, setAdded] = useState(false);
   const [imageFailed, setImageFailed] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
+  const [, setIsHovered] = useState(false);
 
   const defaultSizeObj = product.sizes.find((s) => s.size === selectedSize) || product.sizes[0];
   const hasImages = product.images && product.images.length > 0 && !imageFailed;
   const primaryImage = product.images?.[0];
-  const hoverImage = product.images?.[1] || primaryImage;
 
   const handleQuickAdd = (e) => {
     e.preventDefault();
@@ -44,185 +44,149 @@ export default function ProductCard({ product }) {
     >
       {/* Product Bottle Presentation & Link */}
       <Link href={`/products/${product.slug}`} style={{ display: 'block', position: 'relative' }}>
-        {hasImages ? (
-          <div
-            style={{
-              width: '100%',
-              aspectRatio: '4 / 5',
-              backgroundColor: '#F8F9F9',
-              position: 'relative',
-              overflow: 'hidden',
-            }}
-          >
-            <img
-              src={isHovered && hoverImage ? hoverImage : primaryImage}
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            aspectRatio: '4 / 5',
+            backgroundColor: 'var(--color-bg-alt)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden',
+          }}
+        >
+          {hasImages ? (
+            <Image
+              src={primaryImage}
               alt={product.name}
-              onError={() => setImageFailed(true)}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
               style={{
-                width: '100%',
-                height: '100%',
                 objectFit: 'cover',
-                transition: 'transform 0.4s ease, opacity 0.3s ease',
+                transition: 'transform 0.4s ease',
               }}
+              onError={() => setImageFailed(true)}
             />
-          </div>
-        ) : (
-          <PerfumeBottlePlaceholder name={product.name} concentration={product.concentration} />
-        )}
+          ) : (
+            <PerfumeBottlePlaceholder name={product.name} />
+          )}
+        </div>
       </Link>
 
-      {/* Product Info */}
+      {/* Product Information Body */}
       <div
         style={{
-          padding: '16px 18px',
+          padding: '18px 18px 16px',
           display: 'flex',
           flexDirection: 'column',
-          flex: 1,
-          justifyContent: 'space-between',
+          flexGrow: 1,
         }}
       >
-        <div>
-          <span
-            style={{
-              fontSize: '0.72rem',
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              color: 'var(--color-primary)',
-              fontWeight: 600,
-              display: 'block',
-              marginBottom: '4px',
-            }}
-          >
-            {product.family} &middot; {product.gender}
-          </span>
+        <span
+          style={{
+            fontSize: '0.72rem',
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            color: 'var(--color-primary)',
+            fontWeight: 600,
+            marginBottom: '4px',
+            display: 'block',
+          }}
+        >
+          {product.family} &middot; {product.gender}
+        </span>
 
-          <Link href={`/products/${product.slug}`}>
-            <h3
-              style={{
-                fontSize: '1.2rem',
-                fontFamily: 'var(--font-serif)',
-                marginBottom: '4px',
-                color: 'var(--color-text-main)',
-              }}
-            >
-              {product.name}
-            </h3>
+        <h3
+          style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: '1.22rem',
+            margin: '0 0 4px',
+            color: 'var(--color-text-main)',
+            fontWeight: 500,
+          }}
+        >
+          <Link
+            href={`/products/${product.slug}`}
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            {product.name}
           </Link>
+        </h3>
 
-          <p
-            style={{
-              fontSize: '0.8rem',
-              color: 'var(--color-text-muted)',
-              marginBottom: '12px',
-              lineHeight: 1.4,
-              display: '-webkit-box',
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: 'vertical',
-              overflow: 'hidden',
-            }}
-          >
-            {product.subtitle}
-          </p>
-        </div>
+        <p
+          style={{
+            fontSize: '0.8rem',
+            color: 'var(--color-text-muted)',
+            lineHeight: 1.4,
+            margin: '0 0 14px',
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+            minHeight: '2.8em',
+          }}
+        >
+          {product.subtitle}
+        </p>
 
-        {/* Size Pills & Quick Add */}
-        <div>
-          <div
-            style={{
-              display: 'flex',
-              gap: '6px',
-              marginBottom: '12px',
-            }}
-          >
-            {product.sizes.map((s) => (
-              <button
-                key={s.size}
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedSize(s.size);
-                }}
-                style={{
-                  fontSize: '0.72rem',
-                  fontWeight: selectedSize === s.size ? 600 : 400,
-                  padding: '4px 8px',
-                  borderRadius: 'var(--radius-sm)',
-                  border: `1px solid ${
-                    selectedSize === s.size ? 'var(--color-primary)' : 'var(--color-border)'
-                  }`,
-                  backgroundColor:
-                    selectedSize === s.size ? 'var(--color-primary-subtle)' : 'transparent',
-                  color: selectedSize === s.size ? 'var(--color-primary)' : 'var(--color-text-muted)',
-                }}
-              >
-                {s.size}
-              </button>
-            ))}
-          </div>
-
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              paddingTop: '8px',
-              borderTop: '1px solid var(--color-border-subtle)',
-            }}
-          >
-            <div>
-              <span
-                style={{
-                  fontSize: '0.75rem',
-                  color: 'var(--color-text-muted)',
-                  display: 'block',
-                  lineHeight: 1,
-                }}
-              >
-                {selectedSize}
-              </span>
-              <span
-                style={{
-                  fontSize: '1.05rem',
-                  fontWeight: 600,
-                  color: 'var(--color-text-main)',
-                }}
-              >
-                Rs. {defaultSizeObj.price.toLocaleString()}
-              </span>
-            </div>
-
-            <button
-              onClick={handleQuickAdd}
-              type="button"
-              className="btn btn-primary"
+        {/* Price & Cart Actions */}
+        <div
+          style={{
+            marginTop: 'auto',
+            paddingTop: '12px',
+            borderTop: '1px solid var(--color-border-subtle)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div>
+            <span
               style={{
-                padding: '8px 12px',
-                fontSize: '0.75rem',
-                gap: '4px',
+                fontSize: '1.15rem',
+                fontWeight: 600,
+                color: 'var(--color-primary)',
+                fontFamily: 'var(--font-sans)',
               }}
-              aria-label={`Add ${product.name} ${selectedSize} to cart`}
             >
-              {added ? (
-                <>
-                  <Check size={14} /> Added
-                </>
-              ) : (
-                <>
-                  <Plus size={14} /> Quick Add
-                </>
-              )}
-            </button>
+              Rs. {defaultSizeObj.price.toLocaleString()}
+            </span>
+            <span
+              style={{
+                display: 'block',
+                fontSize: '0.72rem',
+                color: 'var(--color-text-muted)',
+                marginTop: '1px',
+              }}
+            >
+              50ml Flacon
+            </span>
           </div>
+
+          <button
+            onClick={handleQuickAdd}
+            type="button"
+            className="btn btn-primary"
+            style={{
+              padding: '8px 14px',
+              fontSize: '0.8rem',
+              gap: '4px',
+            }}
+            aria-label={`Add ${product.name} to bag`}
+          >
+            {added ? (
+              <>
+                <Check size={14} /> Added
+              </>
+            ) : (
+              <>
+                <Plus size={14} /> Add
+              </>
+            )}
+          </button>
         </div>
       </div>
-
-      <style jsx>{`
-        .product-card:hover {
-          border-color: rgba(47, 79, 79, 0.28);
-          box-shadow: var(--shadow-hover);
-          transform: translateY(-2px);
-        }
-      `}</style>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import ProductCard from '@/components/ProductCard';
 import { getAllProducts } from '@/lib/catalog';
 import { ArrowRight } from 'lucide-react';
@@ -8,7 +9,7 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* 1. Hero Section: Hero image linked directly to /shop */}
+      {/* 1. Hero Section: Optimized Responsive Banner */}
       <section
         style={{
           backgroundColor: '#FFFFFF',
@@ -28,18 +29,20 @@ export default function HomePage() {
               cursor: 'pointer',
               boxShadow: 'var(--shadow-sm)',
               position: 'relative',
+              width: '100%',
+              aspectRatio: '16 / 7',
+              maxHeight: '75vh',
             }}
             aria-label="Explore The Fragrance Collection"
           >
-            <img
+            <Image
               src="/images/hero.jpg"
               alt="Levryn Haute Parfumerie Hero Banner"
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 1200px"
               style={{
-                width: '100%',
-                height: 'auto',
-                display: 'block',
                 objectFit: 'cover',
-                maxHeight: '75vh',
               }}
             />
           </Link>

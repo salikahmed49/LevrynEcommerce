@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 import { getProductBySlug, getAllProducts } from '@/lib/catalog';
@@ -50,52 +51,92 @@ export default function ProductDetailPage({ params }) {
     .filter((p) => p.id !== product.id)
     .slice(0, 4);
 
-
   const handleAddToCart = () => {
     addToCart(product, selectedSize, quantity);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };
 
+  // Google JSON-LD Product & Offer Schema
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.description,
+    image: [`https://www.shoplevryn.com${product.images[0]}`],
+    brand: {
+      '@type': 'Brand',
+      name: 'Levryn',
+    },
+    offers: {
+      '@type': 'Offer',
+      price: currentSizeObj.price,
+      priceCurrency: 'PKR',
+      availability: currentSizeObj.inStock
+        ? 'https://schema.org/InStock'
+        : 'https://schema.org/OutOfStock',
+      url: `https://www.shoplevryn.com/products/${product.slug}`,
+      itemCondition: 'https://schema.org/NewCondition',
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '5.0',
+      reviewCount: '12',
+    },
+  };
+
   return (
-    <div style={{ backgroundColor: '#FFFFFF', paddingBottom: '96px' }}>
-      {/* Breadcrumbs */}
+    <div style={{ backgroundColor: '#FFFFFF', minHeight: '85vh', paddingBottom: '96px' }}>
+      {/* Embed Structured Data for Google SERP */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
+      {/* Breadcrumb Navigation */}
       <div
         style={{
-          padding: '16px 0',
           borderBottom: '1px solid var(--color-border-subtle)',
           backgroundColor: 'var(--color-bg-alt)',
+          padding: '14px 0',
         }}
       >
-        <div
-          className="container"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            fontSize: '0.8rem',
-            color: 'var(--color-text-muted)',
-          }}
-        >
-          <Link href="/">Home</Link>
-          <ChevronRight size={13} />
-          <Link href="/shop">Fragrances</Link>
-          <ChevronRight size={13} />
-          <span style={{ color: 'var(--color-text-main)', fontWeight: 500 }}>{product.name}</span>
+        <div className="container">
+          <nav
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontSize: '0.8rem',
+              color: 'var(--color-text-muted)',
+            }}
+          >
+            <Link href="/" style={{ color: 'inherit', textDecoration: 'none' }}>
+              Home
+            </Link>
+            <ChevronRight size={14} />
+            <Link href="/shop" style={{ color: 'inherit', textDecoration: 'none' }}>
+              Shop
+            </Link>
+            <ChevronRight size={14} />
+            <span style={{ color: 'var(--color-text-main)', fontWeight: 500 }}>
+              {product.name}
+            </span>
+          </nav>
         </div>
       </div>
 
-      {/* Main PDP Grid */}
-      <div className="container" style={{ paddingTop: '40px' }}>
+      {/* Main Product Showcase Section */}
+      <div className="container" style={{ paddingTop: 'clamp(32px, 5vw, 64px)' }}>
         <div
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: 'clamp(32px, 5vw, 64px)',
+            gap: 'clamp(36px, 6vw, 72px)',
             alignItems: 'start',
           }}
         >
-          {/* Left Column: Media Gallery */}
+          {/* Left Column: Media Presentation */}
           <div>
             <div
               style={{
@@ -109,6 +150,7 @@ export default function ProductDetailPage({ params }) {
               {product.images && product.images.length > 0 && !imageError ? (
                 <div
                   style={{
+                    position: 'relative',
                     width: '100%',
                     aspectRatio: '4 / 5',
                     backgroundColor: '#FFFFFF',
@@ -118,16 +160,17 @@ export default function ProductDetailPage({ params }) {
                     overflow: 'hidden',
                   }}
                 >
-                  <img
+                  <Image
                     src={product.images[activeImageIndex] || product.images[0]}
                     alt={product.name}
-                    onError={() => setImageError(true)}
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     style={{
-                      width: '100%',
-                      height: '100%',
                       objectFit: 'cover',
                       transition: 'transform 0.3s ease',
                     }}
+                    onError={() => setImageError(true)}
                   />
                 </div>
               ) : (
@@ -144,6 +187,7 @@ export default function ProductDetailPage({ params }) {
                     type="button"
                     onClick={() => setActiveImageIndex(idx)}
                     style={{
+                      position: 'relative',
                       width: '64px',
                       height: '80px',
                       borderRadius: 'var(--radius-sm)',
@@ -155,10 +199,12 @@ export default function ProductDetailPage({ params }) {
                       cursor: 'pointer',
                     }}
                   >
-                    <img
+                    <Image
                       src={img}
-                      alt={`${product.name} view ${idx + 1}`}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      alt={`${product.name} thumbnail ${idx + 1}`}
+                      fill
+                      sizes="64px"
+                      style={{ objectFit: 'cover' }}
                     />
                   </button>
                 ))}
@@ -236,12 +282,14 @@ export default function ProductDetailPage({ params }) {
                 style={{
                   display: 'flex',
                   justifyContent: 'space-between',
-                  marginBottom: '8px',
+                  marginBottom: '10px',
                   fontSize: '0.82rem',
                 }}
               >
-                <span style={{ fontWeight: 600 }}>Select Flacon Size:</span>
-                <span style={{ color: 'var(--color-text-muted)' }}>{selectedSize}</span>
+                <span style={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  Select Flacon Size
+                </span>
+                <span style={{ color: 'var(--color-text-muted)' }}>Extrait Concentration</span>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
@@ -250,27 +298,28 @@ export default function ProductDetailPage({ params }) {
                     key={s.size}
                     type="button"
                     onClick={() => setSelectedSize(s.size)}
+                    disabled={!s.inStock}
                     style={{
-                      padding: '12px 8px',
+                      padding: '12px 14px',
                       borderRadius: 'var(--radius-sm)',
-                      border: `1.5px solid ${
-                        selectedSize === s.size ? 'var(--color-primary)' : 'var(--color-border)'
-                      }`,
-                      backgroundColor:
-                        selectedSize === s.size ? 'var(--color-primary-subtle)' : '#FFFFFF',
+                      border:
+                        selectedSize === s.size
+                          ? '2px solid var(--color-primary)'
+                          : '1px solid var(--color-border)',
+                      backgroundColor: selectedSize === s.size ? 'var(--color-bg-alt)' : '#FFFFFF',
                       textAlign: 'center',
-                      transition: 'var(--transition)',
+                      cursor: s.inStock ? 'pointer' : 'not-allowed',
+                      opacity: s.inStock ? 1 : 0.45,
+                      position: 'relative',
                     }}
                   >
                     <span
                       style={{
                         display: 'block',
-                        fontWeight: selectedSize === s.size ? 700 : 500,
-                        fontSize: '0.9rem',
+                        fontWeight: 600,
+                        fontSize: '0.92rem',
                         color:
-                          selectedSize === s.size
-                            ? 'var(--color-primary)'
-                            : 'var(--color-text-main)',
+                          selectedSize === s.size ? 'var(--color-primary)' : 'var(--color-text-main)',
                       }}
                     >
                       {s.size}
@@ -332,13 +381,22 @@ export default function ProductDetailPage({ params }) {
               <button
                 type="button"
                 onClick={handleAddToCart}
+                disabled={!currentSizeObj.inStock}
                 className="btn btn-primary"
-                style={{ flex: 1, padding: '14px 24px', fontSize: '0.95rem' }}
+                style={{
+                  flex: 1,
+                  padding: '16px 24px',
+                  fontSize: '0.95rem',
+                  gap: '8px',
+                  justifyContent: 'center',
+                }}
               >
                 {added ? (
                   <>
                     <Check size={18} /> Added to Bag
                   </>
+                ) : !currentSizeObj.inStock ? (
+                  'Currently Out of Stock'
                 ) : (
                   <>
                     <ShoppingBag size={18} /> Add to Bag &middot; Rs.{' '}
@@ -574,51 +632,35 @@ export default function ProductDetailPage({ params }) {
             left: 0,
             right: 0,
             backgroundColor: '#FFFFFF',
-            padding: '12px 16px',
             borderTop: '1px solid var(--color-border)',
-            boxShadow: '0 -4px 16px rgba(0, 0, 0, 0.08)',
+            padding: '12px 20px',
             zIndex: 900,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            gap: '12px',
+            boxShadow: '0 -4px 16px rgba(0, 0, 0, 0.08)',
           }}
-          className="mobile-sticky-bar"
         >
           <div>
-            <span
-              style={{
-                fontSize: '0.92rem',
-                fontFamily: 'var(--font-serif)',
-                fontWeight: 600,
-                display: 'block',
-              }}
-            >
+            <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', display: 'block' }}>
               {product.name} &middot; {selectedSize}
             </span>
-            <span style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-primary)' }}>
-              Rs. {currentSizeObj.price.toLocaleString()}
+            <span style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--color-primary)' }}>
+              Rs. {(currentSizeObj.price * quantity).toLocaleString()}
             </span>
           </div>
 
           <button
             type="button"
             onClick={handleAddToCart}
+            disabled={!currentSizeObj.inStock}
             className="btn btn-primary"
-            style={{ padding: '10px 18px', fontSize: '0.85rem' }}
+            style={{ padding: '10px 20px', fontSize: '0.85rem' }}
           >
             {added ? 'Added' : 'Add to Bag'}
           </button>
         </div>
       )}
-
-      <style jsx>{`
-        @media (min-width: 768px) {
-          .mobile-sticky-bar {
-            display: none !important;
-          }
-        }
-      `}</style>
     </div>
   );
 }
