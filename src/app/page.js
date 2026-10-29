@@ -9,15 +9,15 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* 1. Hero Section: Optimized Responsive Banner */}
+      {/* 1. Hero Section: Natural aspect ratio without any cropping on mobile or desktop */}
       <section
         style={{
           backgroundColor: '#FFFFFF',
-          padding: '0 0 clamp(24px, 3vw, 40px)',
+          padding: 'clamp(16px, 3vw, 32px) 0 clamp(24px, 4vw, 40px)',
           borderBottom: '1px solid var(--color-border-subtle)',
         }}
       >
-        <div className="container" style={{ padding: '0 clamp(16px, 3vw, 24px)' }}>
+        <div className="container" style={{ maxWidth: '960px' }}>
           <Link
             href="/shop"
             style={{
@@ -25,24 +25,24 @@ export default function HomePage() {
               textDecoration: 'none',
               overflow: 'hidden',
               borderRadius: 'var(--radius-md)',
-              margin: '20px 0 0',
-              cursor: 'pointer',
               boxShadow: 'var(--shadow-sm)',
               position: 'relative',
               width: '100%',
-              aspectRatio: '16 / 7',
-              maxHeight: '75vh',
+              lineHeight: 0,
             }}
             aria-label="Explore The Fragrance Collection"
           >
             <Image
               src="/images/hero.jpg"
               alt="Levryn Haute Parfumerie Hero Banner"
-              fill
+              width={1080}
+              height={1100}
               priority
-              sizes="(max-width: 768px) 100vw, 1200px"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 960px"
               style={{
-                objectFit: 'cover',
+                width: '100%',
+                height: 'auto',
+                display: 'block',
               }}
             />
           </Link>
