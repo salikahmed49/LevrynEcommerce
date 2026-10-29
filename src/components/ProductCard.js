@@ -61,7 +61,7 @@ export default function ProductCard({ product }) {
               src={primaryImage}
               alt={product.name}
               fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
               style={{
                 objectFit: 'cover',
                 transition: 'transform 0.4s ease',
@@ -76,8 +76,9 @@ export default function ProductCard({ product }) {
 
       {/* Product Information Body */}
       <div
+        className="product-card-body"
         style={{
-          padding: '18px 18px 16px',
+          padding: 'clamp(12px, 3vw, 18px)',
           display: 'flex',
           flexDirection: 'column',
           flexGrow: 1,
@@ -85,25 +86,26 @@ export default function ProductCard({ product }) {
       >
         <span
           style={{
-            fontSize: '0.72rem',
+            fontSize: '0.7rem',
             letterSpacing: '0.12em',
             textTransform: 'uppercase',
             color: 'var(--color-primary)',
             fontWeight: 600,
-            marginBottom: '4px',
+            marginBottom: '3px',
             display: 'block',
           }}
         >
-          {product.family} &middot; {product.gender}
+          {product.family}
         </span>
 
         <h3
           style={{
             fontFamily: 'var(--font-serif)',
-            fontSize: '1.22rem',
-            margin: '0 0 4px',
+            fontSize: 'clamp(1.05rem, 2.5vw, 1.25rem)',
+            margin: '0 0 3px',
             color: 'var(--color-text-main)',
             fontWeight: 500,
+            lineHeight: 1.2,
           }}
         >
           <Link
@@ -116,48 +118,52 @@ export default function ProductCard({ product }) {
 
         <p
           style={{
-            fontSize: '0.8rem',
+            fontSize: '0.78rem',
             color: 'var(--color-text-muted)',
-            lineHeight: 1.4,
-            margin: '0 0 14px',
+            lineHeight: 1.35,
+            margin: '0 0 10px',
             display: '-webkit-box',
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
             overflow: 'hidden',
-            minHeight: '2.8em',
+            minHeight: '2.4em',
           }}
         >
           {product.subtitle}
         </p>
 
-        {/* Price & Cart Actions */}
+        {/* Price & Action Area: Clean responsive layout on both mobile & desktop */}
         <div
+          className="product-card-footer"
           style={{
             marginTop: 'auto',
-            paddingTop: '12px',
+            paddingTop: '10px',
             borderTop: '1px solid var(--color-border-subtle)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
+            gap: '8px',
+            flexWrap: 'wrap',
           }}
         >
-          <div>
+          <div style={{ minWidth: '70px', lineHeight: 1.15 }}>
             <span
               style={{
-                fontSize: '1.15rem',
-                fontWeight: 600,
+                fontSize: 'clamp(0.95rem, 2.2vw, 1.15rem)',
+                fontWeight: 700,
                 color: 'var(--color-primary)',
                 fontFamily: 'var(--font-sans)',
+                display: 'block',
+                letterSpacing: '-0.01em',
               }}
             >
               Rs. {defaultSizeObj.price.toLocaleString()}
             </span>
             <span
               style={{
-                display: 'block',
-                fontSize: '0.72rem',
+                fontSize: '0.68rem',
                 color: 'var(--color-text-muted)',
-                marginTop: '1px',
+                fontWeight: 500,
               }}
             >
               50ml Flacon
@@ -169,19 +175,26 @@ export default function ProductCard({ product }) {
             type="button"
             className="btn btn-primary"
             style={{
-              padding: '8px 14px',
-              fontSize: '0.8rem',
+              padding: '6px 12px',
+              fontSize: '0.78rem',
+              fontWeight: 600,
               gap: '4px',
+              borderRadius: 'var(--radius-sm)',
+              height: '32px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              whiteSpace: 'nowrap',
             }}
             aria-label={`Add ${product.name} to bag`}
           >
             {added ? (
               <>
-                <Check size={14} /> Added
+                <Check size={13} /> Added
               </>
             ) : (
               <>
-                <Plus size={14} /> Add
+                <Plus size={13} /> Add
               </>
             )}
           </button>
