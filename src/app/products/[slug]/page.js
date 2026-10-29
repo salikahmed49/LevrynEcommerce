@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 import { getProductBySlug, getAllProducts } from '@/lib/catalog';
-import { BANK_CONFIG } from '@/lib/config';
 import PerfumeBottlePlaceholder from '@/components/PerfumeBottlePlaceholder';
 import ProductCard from '@/components/ProductCard';
+import CustomerReviews from '@/components/CustomerReviews';
 import {
   Plus,
   Minus,
@@ -533,35 +533,8 @@ export default function ProductDetailPage({ params }) {
           </div>
         </section>
 
-        {/* Real Customer Feedback & Inquiry Section */}
-        <section
-          style={{
-            marginTop: '80px',
-            padding: '48px 32px',
-            backgroundColor: 'var(--color-bg-alt)',
-            borderRadius: 'var(--radius-md)',
-            border: '1px solid var(--color-border-subtle)',
-            textAlign: 'center',
-          }}
-        >
-          <div style={{ maxWidth: '580px', margin: '0 auto' }}>
-            <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.8rem', marginBottom: '8px' }}>
-              Experience {product.name}
-            </h3>
-            <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', marginBottom: '20px' }}>
-              We invite real customer impressions. Have questions about the sillage, accord longevity,
-              or flacon sizes? Chat with our fragrance consultants directly on WhatsApp.
-            </p>
-            <a
-              href={`https://wa.me/${(BANK_CONFIG.supportWhatsApp || '923272332833').replace(/[^0-9]/g, '')}?text=Hi%20Levryn,%20I%20have%20a%20question%20about%20${encodeURIComponent(product.name)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-secondary"
-            >
-              Consult On WhatsApp
-            </a>
-          </div>
-        </section>
+        {/* Real Customer Feedback & Reviews Section */}
+        <CustomerReviews productSlug={product.slug} productName={product.name} />
 
         {/* You May Also Like */}
         <section style={{ marginTop: '80px' }}>
