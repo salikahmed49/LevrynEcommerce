@@ -272,7 +272,7 @@ export default function ProductDetailPage({ params }) {
                 Rs. {currentSizeObj.price.toLocaleString()}
               </span>
               <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
-                Tax included &middot; Flacon size: {selectedSize}
+                Tax included
               </span>
             </div>
 
@@ -287,7 +287,7 @@ export default function ProductDetailPage({ params }) {
                 }}
               >
                 <span style={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                  Select Flacon Size
+                  Select Size
                 </span>
                 <span style={{ color: 'var(--color-text-muted)' }}>Extrait Concentration</span>
               </div>
