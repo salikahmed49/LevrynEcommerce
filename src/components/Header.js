@@ -184,7 +184,7 @@ export default function Header() {
               >
                 <input
                   type="text"
-                  placeholder="Search by fragrance or notes..."
+                  placeholder="Search by perfume, brand inspiration (e.g. Eros), or notes..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   autoFocus

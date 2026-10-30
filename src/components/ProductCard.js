@@ -116,6 +116,43 @@ export default function ProductCard({ product }) {
           </Link>
         </h3>
 
+        {/* Olfactory Inspiration / Reminds Me Of Badge */}
+        {product.inspiration ? (
+          <div
+            style={{
+              minHeight: '26px',
+              display: 'flex',
+              alignItems: 'center',
+              margin: '3px 0 8px',
+            }}
+          >
+            <span
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                fontSize: '0.72rem',
+                color: 'var(--color-primary)',
+                backgroundColor: 'var(--color-bg-alt)',
+                padding: '3px 8px',
+                borderRadius: 'var(--radius-sm)',
+                border: '1px solid var(--color-border)',
+                fontWeight: 500,
+                letterSpacing: '0.01em',
+                lineHeight: 1.3,
+                maxWidth: '100%',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+              title={product.inspiration}
+            >
+              {product.inspiration}
+            </span>
+          </div>
+        ) : (
+          <div style={{ height: '26px', margin: '3px 0 8px' }} />
+        )}
+
         <p
           style={{
             fontSize: '0.78rem',

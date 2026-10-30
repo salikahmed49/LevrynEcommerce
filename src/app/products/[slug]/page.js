@@ -239,6 +239,31 @@ export default function ProductDetailPage({ params }) {
               {product.name}
             </h1>
 
+            {/* Olfactory Inspiration Badge */}
+            {product.inspiration && (
+              <div style={{ marginBottom: '18px' }}>
+                <span
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    fontSize: '0.82rem',
+                    color: 'var(--color-primary)',
+                    backgroundColor: 'var(--color-bg-alt)',
+                    padding: '6px 12px',
+                    borderRadius: 'var(--radius-sm)',
+                    border: '1px solid var(--color-border)',
+                    fontWeight: 500,
+                    letterSpacing: '0.02em',
+                    lineHeight: 1.4,
+                  }}
+                >
+                  <span style={{ fontSize: '0.85rem' }}>✨</span>
+                  {product.inspiration}
+                </span>
+              </div>
+            )}
+
             <p
               style={{
                 fontSize: '0.95rem',

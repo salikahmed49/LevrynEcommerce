@@ -1,27 +1,56 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import ProductCard from '@/components/ProductCard';
 import { getAllProducts } from '@/lib/catalog';
-import { Search } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 
-export default function ShopPage() {
+function ShopContent() {
   const allProducts = getAllProducts();
-  const [searchQuery, setSearchQuery] = useState('');
+  const searchParams = useSearchParams();
+  const initialQ = searchParams?.get('q') || '';
+  const [searchQuery, setSearchQuery] = useState(initialQ);
   const [sortBy, setSortBy] = useState('featured');
 
+  useEffect(() => {
+    const q = searchParams?.get('q');
+    if (q !== null && q !== undefined) {
+      setSearchQuery(q);
+    }
+  }, [searchParams]);
+
+  // Robust multi-term search matching across name, inspiration, notes, family, gender, and description
   const filteredProducts = useMemo(() => {
     let result = [...allProducts];
 
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase().trim();
-      result = result.filter(
-        (p) =>
-          p.name.toLowerCase().includes(q) ||
-          p.subtitle.toLowerCase().includes(q) ||
-          p.family.toLowerCase().includes(q) ||
-          p.description.toLowerCase().includes(q)
-      );
+    const raw = searchQuery.trim().toLowerCase();
+    if (raw) {
+      // Split user query into tokens (e.g. "eros versace" or "vanilla men")
+      const tokens = raw.split(/\s+/).filter(Boolean);
+
+      result = result.filter((p) => {
+        // Collect all searchable text fields for this perfume
+        const topNotes = p.notes?.top?.join(' ') || '';
+        const heartNotes = p.notes?.heart?.join(' ') || '';
+        const baseNotes = p.notes?.base?.join(' ') || '';
+        const allNotes = `${topNotes} ${heartNotes} ${baseNotes}`;
+
+        const searchableCorpus = [
+          p.name,
+          p.subtitle,
+          p.family,
+          p.gender,
+          p.description,
+          p.inspiration || '',
+          allNotes,
+        ]
+          .join(' ')
+          .toLowerCase();
+
+        // Every token typed by the user must match the product corpus
+        return tokens.every((token) => searchableCorpus.includes(token));
+      });
     }
 
     if (sortBy === 'price-low') {
@@ -95,21 +124,55 @@ export default function ShopPage() {
           }}
         >
           {/* Search Input */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: '1', minWidth: '220px', maxWidth: '380px' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              flex: '1',
+              minWidth: '220px',
+              maxWidth: '380px',
+              position: 'relative',
+            }}
+          >
             <Search size={16} color="var(--color-text-muted)" />
             <input
               type="text"
-              placeholder="Search by scent or notes..."
+              placeholder="Search by perfume, inspiration (e.g. Eros), or notes..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{
                 border: 'none',
-                padding: '4px 0',
+                padding: '4px 24px 4px 0',
                 fontSize: '0.85rem',
                 backgroundColor: 'transparent',
                 boxShadow: 'none',
+                width: '100%',
               }}
             />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                aria-label="Clear search input"
+                style={{
+                  position: 'absolute',
+                  right: 0,
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  padding: '4px',
+                  color: 'var(--color-text-muted)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                <X size={14} />
+              </button>
+            )}
           </div>
 
           {/* Sort */}
@@ -169,5 +232,13 @@ export default function ShopPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function ShopPage() {
+  return (
+    <Suspense fallback={<div style={{ minHeight: '80vh', backgroundColor: '#FFFFFF' }} />}>
+      <ShopContent />
+    </Suspense>
   );
 }
