@@ -372,7 +372,6 @@ export default function CartDrawer() {
                     type="text"
                     value={couponCodeInput}
                     onChange={(e) => setCouponCodeInput(e.target.value)}
-                    placeholder="Coupon (e.g. LEVRYN10)"
                     style={{
                       flex: 1,
                       padding: '6px 10px',

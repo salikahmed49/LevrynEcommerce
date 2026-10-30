@@ -793,7 +793,6 @@ export default function CheckoutPage() {
                     type="text"
                     value={couponInput}
                     onChange={(e) => setCouponInput(e.target.value)}
-                    placeholder="e.g. LEVRYN10, LEVRYN20"
                     style={{
                       flex: 1,
                       textTransform: 'uppercase',
