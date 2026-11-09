@@ -184,18 +184,32 @@ export default function ProductCard({ product }) {
           }}
         >
           <div style={{ minWidth: '70px', lineHeight: 1.15 }}>
-            <span
-              style={{
-                fontSize: 'clamp(0.95rem, 2.2vw, 1.15rem)',
-                fontWeight: 700,
-                color: 'var(--color-primary)',
-                fontFamily: 'var(--font-sans)',
-                display: 'block',
-                letterSpacing: '-0.01em',
-              }}
-            >
-              Rs. {defaultSizeObj.price.toLocaleString()}
-            </span>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', flexWrap: 'wrap' }}>
+              <span
+                style={{
+                  fontSize: 'clamp(0.95rem, 2.2vw, 1.15rem)',
+                  fontWeight: 700,
+                  color: 'var(--color-primary)',
+                  fontFamily: 'var(--font-sans)',
+                  display: 'block',
+                  letterSpacing: '-0.01em',
+                }}
+              >
+                Rs. {defaultSizeObj.price.toLocaleString()}
+              </span>
+              {defaultSizeObj.originalPrice && (
+                <span
+                  style={{
+                    fontSize: '0.8rem',
+                    color: 'var(--color-text-muted)',
+                    textDecoration: 'line-through',
+                    fontWeight: 500,
+                  }}
+                >
+                  Rs. {defaultSizeObj.originalPrice.toLocaleString()}
+                </span>
+              )}
+            </div>
           </div>
 
           <button

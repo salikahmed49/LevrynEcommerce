@@ -42,6 +42,12 @@ export default function sitemap() {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
+    {
+      url: `${baseUrl}/track-order`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
   ];
 
   return [...staticUrls, ...productUrls];

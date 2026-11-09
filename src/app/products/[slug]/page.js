@@ -284,6 +284,7 @@ export default function ProductDetailPage({ params }) {
                 paddingBottom: '20px',
                 borderBottom: '1px solid var(--color-border-subtle)',
                 marginBottom: '24px',
+                flexWrap: 'wrap',
               }}
             >
               <span
@@ -296,6 +297,34 @@ export default function ProductDetailPage({ params }) {
               >
                 Rs. {currentSizeObj.price.toLocaleString()}
               </span>
+              {currentSizeObj.originalPrice && (
+                <span
+                  style={{
+                    fontSize: '1.2rem',
+                    color: 'var(--color-text-muted)',
+                    textDecoration: 'line-through',
+                    fontWeight: 400,
+                  }}
+                >
+                  Rs. {currentSizeObj.originalPrice.toLocaleString()}
+                </span>
+              )}
+              {currentSizeObj.originalPrice && (
+                <span
+                  style={{
+                    fontSize: '0.75rem',
+                    fontWeight: 700,
+                    color: '#b91c1c',
+                    backgroundColor: '#fee2e2',
+                    padding: '2px 8px',
+                    borderRadius: 'var(--radius-sm)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.04em',
+                  }}
+                >
+                  Sale
+                </span>
+              )}
               <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
                 Tax included
               </span>

@@ -22,6 +22,8 @@ export default function AdminPortalPage() {
   const [orders, setOrders] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [autoRefresh, setAutoRefresh] = useState(true);
+  const [lastUpdated, setLastUpdated] = useState(null);
 
   // Check saved passphrase in sessionStorage
   useEffect(() => {
@@ -32,8 +34,19 @@ export default function AdminPortalPage() {
     }
   }, []);
 
-  const loadDashboard = async (secretToUse) => {
-    setLoading(true);
+  // Realtime Polling Engine: automatically fetches live orders and updates KPIs every 10 seconds
+  useEffect(() => {
+    if (!isAuthenticated || !passphrase || !autoRefresh) return;
+
+    const interval = setInterval(() => {
+      loadDashboard(passphrase, true); // silent background refresh
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [isAuthenticated, passphrase, autoRefresh]);
+
+  const loadDashboard = async (secretToUse, silent = false) => {
+    if (!silent) setLoading(true);
     setLoginError('');
     try {
       const res = await fetch(`/api/admin/orders?secret=${encodeURIComponent(secretToUse)}`);
@@ -46,12 +59,15 @@ export default function AdminPortalPage() {
       setKpis(data.kpis);
       setOrders(data.orders);
       setIsAuthenticated(true);
+      setLastUpdated(new Date());
       sessionStorage.setItem('levryn_admin_secret', secretToUse);
     } catch (err) {
-      setLoginError(err.message || 'Login failed. Please check your admin PIN.');
-      setIsAuthenticated(false);
+      if (!silent) {
+        setLoginError(err.message || 'Login failed. Please check your admin PIN.');
+        setIsAuthenticated(false);
+      }
     } finally {
-      setLoading(false);
+      if (!silent) setLoading(false);
     }
   };
 
@@ -199,30 +215,75 @@ export default function AdminPortalPage() {
           }}
         >
           <div>
-            <span
-              style={{
-                fontSize: '0.75rem',
-                letterSpacing: '0.18em',
-                textTransform: 'uppercase',
-                color: 'var(--color-primary)',
-                fontWeight: 600,
-                display: 'block',
-              }}
-            >
-              Management Console
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span
+                style={{
+                  fontSize: '0.75rem',
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  color: 'var(--color-primary)',
+                  fontWeight: 600,
+                  display: 'block',
+                }}
+              >
+                Management Console
+              </span>
+              {/* Realtime Live Indicator Badge */}
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  backgroundColor: autoRefresh ? '#dcfce7' : '#f3f4f6',
+                  color: autoRefresh ? '#15803d' : '#6b7280',
+                  padding: '2px 8px',
+                  borderRadius: '12px',
+                  fontSize: '0.7rem',
+                  fontWeight: 600,
+                }}
+              >
+                <span
+                  style={{
+                    width: '6px',
+                    height: '6px',
+                    borderRadius: '50%',
+                    backgroundColor: autoRefresh ? '#22c55e' : '#9ca3af',
+                    display: 'inline-block',
+                  }}
+                />
+                {autoRefresh ? 'LIVE (10s)' : 'PAUSED'}
+              </span>
+            </div>
             <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.2rem', margin: '4px 0 0' }}>
               Operations & Orders KPI
             </h1>
+            {lastUpdated && (
+              <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
+                Last synced at {lastUpdated.toLocaleTimeString()}
+              </span>
+            )}
           </div>
 
-          <div style={{ display: 'flex', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <button
+              onClick={() => setAutoRefresh(!autoRefresh)}
+              className="btn btn-secondary"
+              style={{
+                padding: '8px 14px',
+                fontSize: '0.8rem',
+                backgroundColor: autoRefresh ? '#FFFFFF' : '#fef2f2',
+                color: autoRefresh ? 'var(--color-text-main)' : '#991b1b',
+              }}
+              title="Toggle automatic live syncing every 10 seconds"
+            >
+              {autoRefresh ? 'Pause Live' : 'Resume Live'}
+            </button>
             <button
               onClick={() => loadDashboard(passphrase)}
               className="btn btn-secondary"
               style={{ padding: '8px 16px', fontSize: '0.85rem', gap: '6px' }}
             >
-              <RefreshCw size={15} /> Refresh
+              <RefreshCw size={15} className={loading ? 'animate-spin' : ''} /> Refresh
             </button>
             <button
               onClick={handleLogout}

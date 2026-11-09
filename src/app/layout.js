@@ -1,4 +1,5 @@
 import './globals.css';
+import Script from 'next/script';
 import { Cormorant_Garamond, Plus_Jakarta_Sans } from 'next/font/google';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
@@ -79,7 +80,33 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${cormorantGaramond.variable} ${plusJakartaSans.variable}`}>
+      <head>
+        {/* Google Tag Manager (GTM-WNW67D5Q) */}
+        <Script
+          id="google-tag-manager"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','GTM-WNW67D5Q');
+            `,
+          }}
+        />
+      </head>
       <body className="antialiased">
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-WNW67D5Q"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+            title="Google Tag Manager"
+          />
+        </noscript>
         <CartProvider>
           <div
             style={{
