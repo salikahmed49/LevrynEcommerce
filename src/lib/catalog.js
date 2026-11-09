@@ -5,7 +5,7 @@ import { SHIPPING_CONFIG } from './config.js';
  * Authoritative catalog source for Next.js application & server-side validation.
  * 
  * Active Lineup (50ml Extrait de Parfum):
- * 1. Cupid - Rs. 1,500 (Versace Eros)
+ * 1. Cupid - Rs. 1,500 (Sale from 2,000) (Versace Eros)
  * 2. Seventh Petals - Rs. 2,500 (Sale from 3,000) (Hibiscus Mahajad Maison Crivelli)
  * 3. Marj - Rs. 2,000 (Sale from 3,000) (Ahmed Al Maghribi Marj)
  * 4. Outlands - Rs. 3,500 (Amouage Outlands)
@@ -13,7 +13,7 @@ import { SHIPPING_CONFIG } from './config.js';
  * 6. Office - Rs. 2,500 (Sale from 3,000) (Office for Men)
  * 7. Arctic Frost - Rs. 1,800 (Sale from 2,200) (Rasasi Hawas Ice)
  * 8. Rebel - Rs. 1,800 (Sale from 2,200) (Afnan 9pm Rebel)
- * 9. Intoxicated - Rs. 1,800 (Sale from 3,000) (Drunk Lovers)
+ * 9. Intoxicated - Rs. 1,800 (Sale from 3,000) (Drunk Lovers BORNTOSTANDOUT)
  * 10. Fiery Xtreme - Rs. 2,500 (Spicebomb Extreme)
  * 11. Vanilla Candy - Rs. 2,000 (PDM Althaïr)
  */
@@ -27,17 +27,17 @@ export const PRODUCTS = [
     gender: 'Men',
     concentration: 'Extrait de Parfum',
     description:
-      'A vibrant burst of crisp green apple, zesty lemon, and cooling mint opens the fragrance with energetic freshness. Aromatic geranium and tonka bean introduce smooth sweetness, while ambroxan adds a modern, sensual character. The fragrance settles into creamy vanilla, earthy vetiver, and dry cedarwood, leaving a fresh, confidently sweet woody trail.',
+      'A luminous, magnetic opening of cooling spearmint, tart green apple, and Italian lemon. The heart unfolds with warm tonka bean, radiant ambroxan, and aromatic geranium, settling into creamy Madagascar vanilla, Virginian cedarwood, and earthy vetiver. Confident, charismatic, and legendary in projection.',
     inspiration: 'Rendition of Versace Eros',
     isBestSeller: true,
     isFeatured: true,
     sizes: [
-      { size: '50ml', price: 1500, inStock: true },
+      { size: '50ml', price: 1500, originalPrice: 2000, inStock: true },
     ],
     notes: {
-      top: ['Mint', 'Green Apple', 'Italian Lemon'],
-      heart: ['Tonka Bean', 'Geranium', 'Ambroxan'],
-      base: ['Madagascar Vanilla', 'Cedarwood', 'Vetiver', 'Oakmoss'],
+      top: ['Mint Leaves', 'Green Apple', 'Italian Lemon Zest'],
+      heart: ['Tonka Bean', 'Ambroxan', 'Geranium Flower'],
+      base: ['Madagascar Vanilla', 'Virginian Cedar', 'Atlas Cedar', 'Vetiver', 'Oakmoss'],
     },
     images: ['/images/Cupid.png'],
   },
@@ -50,7 +50,7 @@ export const PRODUCTS = [
     gender: 'Unisex',
     concentration: 'Extrait de Parfum',
     description:
-      'An opulent floral-fruity masterpiece contrasting radiant red hibiscus and Damask rose against tart blackcurrant and spearmint. As the fragrance develops, smooth bourbon vanilla and rich leather merge with ambrette seed, creating an irresistible, opulent sillage.',
+      'An opulent floral-fruity masterpiece contrasting radiant red hibiscus and Damask rose absolute against tart blackcurrant and crushed spearmint. As the fragrance settles, rich leather nuances, creamy bourbon vanilla, and ambrette seed envelop the senses in an extraordinary, room-filling sillage.',
     inspiration: 'Rendition of Maison Crivelli Hibiscus Mahajad',
     isBestSeller: true,
     isFeatured: true,
@@ -58,9 +58,9 @@ export const PRODUCTS = [
       { size: '50ml', price: 2500, originalPrice: 3000, inStock: true },
     ],
     notes: {
-      top: ['Hibiscus Accord', 'Blackcurrant', 'Spearmint'],
-      heart: ['Damask Rose Absolute', 'Cinnamon', 'Ambrette Seed'],
-      base: ['Bourbon Vanilla', 'Leather Accord', 'Sensual Musk'],
+      top: ['Spearmint', 'Blackcurrant', 'Cinnamon'],
+      heart: ['Hibiscus Accord', 'Damask Rose Absolute', 'Leather Nuances'],
+      base: ['Bourbon Vanilla', 'Ambrette (Musk Mallow)', 'Sensual Musk'],
     },
     images: ['/images/seventhpetals.png'],
   },
@@ -73,7 +73,7 @@ export const PRODUCTS = [
     gender: 'Unisex',
     concentration: 'Extrait de Parfum',
     description:
-      'A rich, royal oriental blend featuring luminous saffron, nutmeg, and aromatic pink pepper leading into a majestic heart of smoky agarwood, amber, and refined patchouli. Designed for those who demand authority, warmth, and enduring projection.',
+      'A royal oriental symphony opening with honeyed citrus, nutmeg, elemi, and spicy pink pepper. A regal heart of cashmere wood, saffron, cinnamon, and velvety rose gives way to a monumental base of smoky agarwood, golden amber, leather, and sandalwood.',
     inspiration: 'Rendition of Ahmed Al Maghribi Marj',
     isBestSeller: true,
     isFeatured: true,
@@ -81,9 +81,9 @@ export const PRODUCTS = [
       { size: '50ml', price: 2000, originalPrice: 3000, inStock: true },
     ],
     notes: {
-      top: ['Saffron', 'Nutmeg', 'Pink Pepper'],
-      heart: ['Smoky Oud', 'Amber', 'Damask Rose'],
-      base: ['Refined Patchouli', 'Musk', 'Precious Woods'],
+      top: ['Oud Nuances', 'Honey', 'Nutmeg', 'Pink Pepper', 'Bergamot'],
+      heart: ['Cashmere Wood', 'Saffron', 'Cinnamon', 'Rose', 'Patchouli'],
+      base: ['Agarwood (Oud)', 'Amber', 'Ambergris', 'Leather', 'Sandalwood', 'Musk'],
     },
     images: ['/images/marj.png'],
   },
@@ -96,7 +96,7 @@ export const PRODUCTS = [
     gender: 'Unisex',
     concentration: 'Extrait de Parfum',
     description:
-      'An enigmatic, high-concept fragrance capturing the raw majesty of untamed wilderness. Cold aromatic cardamom and incense encounter deep benzoin, balsamic woods, and rare amber, evoking profound mystery and timeless grandeur.',
+      'An enigmatic, high-concept fragrance capturing the raw majesty of untamed wilderness. Aromatic green cardamom, Sichuan pepper, and lemon meet mystical frankincense and balsamic patchouli, unfolding onto rich benzoin, labdanum, birch, and smoky vanilla amber.',
     inspiration: 'Rendition of Amouage Outlands',
     isBestSeller: false,
     isFeatured: true,
@@ -104,9 +104,9 @@ export const PRODUCTS = [
       { size: '50ml', price: 3500, inStock: true },
     ],
     notes: {
-      top: ['Cardamom', 'Lemon Zest', 'Frankincense Mist'],
-      heart: ['Anise', 'Patchouli', 'Balsamic Resins'],
-      base: ['Amber Woods', 'Benzoin', 'Olibanum'],
+      top: ['Cardamom', 'Frankincense (Olibanum)', 'Sichuan Pepper', 'Lemon Zest'],
+      heart: ['Patchouli', 'Anise', 'Geranium', 'Davana', 'Saffron'],
+      base: ['Benzoin', 'Labdanum', 'Opoponax', 'Birch', 'Bourbon Vanilla', 'Ambergris', 'Oud'],
     },
     images: ['/images/Outlands.png'],
   },
@@ -119,7 +119,7 @@ export const PRODUCTS = [
     gender: 'Men',
     concentration: 'Extrait de Parfum',
     description:
-      'A pure, powerful aromatic woody masterpiece. Crisp lemon zest and cool mint transition into rich lavender and geranium, settling over a dense, velvety base of creamy New Caledonian sandalwood, cedar, and ambery cedarwood.',
+      'A dense, commanding aromatic woody masterpiece. Crisp lemon zest, bergamot, and cooling mint transition into rich French lavender and geranium, settling over a luxurious foundation of creamy New Caledonian sandalwood, cedarwood, and rich amberwood.',
     inspiration: 'Rendition of Bleu de Chanel Parfum',
     isBestSeller: true,
     isFeatured: true,
@@ -127,9 +127,9 @@ export const PRODUCTS = [
       { size: '50ml', price: 2500, inStock: true },
     ],
     notes: {
-      top: ['Lemon Zest', 'Bergamot', 'Mint'],
-      heart: ['Lavender', 'Geranium', 'Pineapple Notes'],
-      base: ['New Caledonian Sandalwood', 'Cedarwood', 'Amberwood'],
+      top: ['Lemon Zest', 'Bergamot', 'Mint', 'Artemisia'],
+      heart: ['Lavender', 'Geranium', 'Pineapple Accords', 'Green Accords'],
+      base: ['New Caledonian Sandalwood', 'Cedarwood', 'Amberwood', 'Tonka Bean'],
     },
     images: ['/images/bleuintense.png'],
   },
@@ -142,7 +142,7 @@ export const PRODUCTS = [
     gender: 'Men',
     concentration: 'Extrait de Parfum',
     description:
-      'Our meticulously tweaked, amplified rendition of the ultimate executive scent. Opening with an effervescent burst of bergamot and green accords, energized by massive doses of crisp ambroxan, radiant florals, and a grounding woody patchouli drydown that commands respect without shouting.',
+      'Our meticulously tweaked, amplified rendition of the ultimate executive scent. Energizing Italian bergamot and orris root transition into a massive signature core of radiant ambroxan and jasmine, grounded by crisp woody patchouli, cashalox, and modern musk.',
     inspiration: 'Tweaked rendition of Office for Men',
     isBestSeller: true,
     isFeatured: true,
@@ -150,9 +150,9 @@ export const PRODUCTS = [
       { size: '50ml', price: 2500, originalPrice: 3000, inStock: true },
     ],
     notes: {
-      top: ['Bergamot', 'Crisp Apple', 'Lemon'],
-      heart: ['Ambroxan', 'Floral Accords', 'Jasmine'],
-      base: ['Patchouli', 'Woody Accords', 'Clean Musk'],
+      top: ['Bergamot', 'Ambroxan', 'Orris Root'],
+      heart: ['Woody Notes', 'Floral Notes', 'Jasmine', 'Ambergris'],
+      base: ['Woody Notes', 'Patchouli', 'Cashalox', 'Clean Musk'],
     },
     images: ['/images/Office.png'],
   },
@@ -165,7 +165,7 @@ export const PRODUCTS = [
     gender: 'Men',
     concentration: 'Extrait de Parfum',
     description:
-      'An invigorating avalanche of icy freshness. Frozen crisp green apple, star anise, and sparkling Italian bergamot combine with maritime aquatic accords, spiced cardamom, and cold musk for unmatched heat performance and projection.',
+      'An exhilarating blast of sub-zero freshness engineered for heat. Frozen crisp green apple, star anise, and Sicilian bergamot open with immense energy, followed by sweet plum and cardamom over an enduring base of driftwood, aquatic amber, and clean musk.',
     inspiration: 'Rendition of Rasasi Hawas Ice',
     isBestSeller: true,
     isFeatured: true,
@@ -173,9 +173,9 @@ export const PRODUCTS = [
       { size: '50ml', price: 1800, originalPrice: 2200, inStock: true },
     ],
     notes: {
-      top: ['Frozen Apple', 'Italian Bergamot', 'Star Anise'],
+      top: ['Frozen Apple', 'Sicilian Bergamot', 'Italian Lemon', 'Star Anise'],
       heart: ['Plum Accord', 'Orange Blossom', 'Cardamom'],
-      base: ['Aquatic Woods', 'Ambroxan', 'Cold Musk', 'Moss'],
+      base: ['Driftwood', 'Moss (Oakmoss)', 'Amber Accords', 'Clean Musk'],
     },
     images: ['/images/arcticfrost.png'],
   },
@@ -188,7 +188,7 @@ export const PRODUCTS = [
     gender: 'Men',
     concentration: 'Extrait de Parfum',
     description:
-      'Bold, magnetic, and relentlessly youthful. Rebel leads with a sweet explosion of fresh pineapple, tart apple, and zesty citrus, seamlessly transitioning into sweet spices, warm vanilla, and golden amber.',
+      'Daring, playful, and addictive. Opening with an intoxicating cocktail of ripe tropical pineapple, granny smith apple, and juicy mandarin. The heart develops with cedarwood, creamy vanilla, and oakmoss, anchored by rich caramel, ambergris, and warm musk.',
     inspiration: 'Rendition of Afnan 9pm Rebel',
     isBestSeller: false,
     isFeatured: true,
@@ -196,9 +196,9 @@ export const PRODUCTS = [
       { size: '50ml', price: 1800, originalPrice: 2200, inStock: true },
     ],
     notes: {
-      top: ['Fresh Pineapple', 'Green Apple', 'Mandarin'],
-      heart: ['Spicy Accords', 'Lavender', 'Cedar'],
-      base: ['Warm Vanilla', 'Golden Amber', 'Oakmoss'],
+      top: ['Tropical Pineapple', 'Granny Smith Apple', 'Mandarin'],
+      heart: ['Cedarwood', 'Vanilla Planifolia', 'Oakmoss'],
+      base: ['Salted Caramel', 'Dry Wood', 'Ambergris', 'Sensual Musk'],
     },
     images: ['/images/rebel.png'],
   },
@@ -211,7 +211,7 @@ export const PRODUCTS = [
     gender: 'Unisex',
     concentration: 'Extrait de Parfum',
     description:
-      'A deeply hypnotic, seductive cocktail of rich red wine accords, juniper berries, and aged brandy nuances. Melted into roasted coffee, velvety bourbon vanilla, and dark sensual patchouli for an intimate, magnetic trail.',
+      'A deeply hypnotic, nocturnal aphrodisiac inspired by hedonistic romance. Tart red berries, bergamot, and juniper merge with spicy aged cognac, clary sage, and ginger. Melts into a dark seductive base of Sumatra benzoin, bourbon vanilla, dark patchouli, and sandalwood.',
     inspiration: 'Rendition of Drunk Lovers (BORNTOSTANDOUT)',
     isBestSeller: false,
     isFeatured: true,
@@ -219,9 +219,9 @@ export const PRODUCTS = [
       { size: '50ml', price: 1800, originalPrice: 3000, inStock: true },
     ],
     notes: {
-      top: ['Red Wine Accord', 'Juniper Berries', 'Bergamot'],
-      heart: ['Spiced Cognac', 'Clary Sage', 'Cinnamon Bark'],
-      base: ['Dark Patchouli', 'Bourbon Vanilla', 'Ambergris', 'Vetiver'],
+      top: ['Red Berries', 'Juniper', 'Bergamot', 'Grapefruit'],
+      heart: ['Spiced Cognac (Brandy)', 'Clary Sage', 'Ginger', 'Pepper', 'Cypress'],
+      base: ['Dark Patchouli', 'Sumatra Benzoin', 'Bourbon Vanilla', 'Sandalwood', 'Vetiver', 'Amber'],
     },
     images: ['/images/intoxicated.png'],
   },
@@ -234,7 +234,7 @@ export const PRODUCTS = [
     gender: 'Unisex',
     concentration: 'Extrait de Parfum',
     description:
-      'An intense opening of fiery black pepper and aromatic lavender sets the tone, followed by a rich heart of cinnamon, cumin, and saffron. As the spices deepen, warm tobacco and smooth bourbon nuances blend with creamy vanilla and woody amber. The result is a bold, enveloping fragrance with dark sweetness and lingering warmth.',
+      'An explosive burst of fiery black pepper, pimento berry, and aromatic lavender. The heart deepens with rich cinnamon bark, cumin, and saffron, settling over a dark, luxurious bed of cured pipe tobacco, bourbon vanilla, and smoky woody amber.',
     inspiration: 'Rendition of Viktor&Rolf Spicebomb Extreme',
     isBestSeller: false,
     isFeatured: true,
@@ -242,9 +242,9 @@ export const PRODUCTS = [
       { size: '50ml', price: 2500, inStock: true },
     ],
     notes: {
-      top: ['Black Pepper', 'Lavender'],
-      heart: ['Cinnamon', 'Cumin', 'Saffron'],
-      base: ['Tobacco', 'Bourbon Accord', 'Vanilla', 'Woody Amber'],
+      top: ['Black Pepper', 'Pimento', 'Lavender'],
+      heart: ['Cinnamon Bark', 'Cumin', 'Saffron'],
+      base: ['Pipe Tobacco', 'Bourbon Accord', 'Vanilla', 'Woody Amber'],
     },
     images: ['/images/fiery Xtreme.png'],
   },
@@ -257,7 +257,7 @@ export const PRODUCTS = [
     gender: 'Unisex',
     concentration: 'Extrait de Parfum',
     description:
-      'Bright bergamot and mandarin introduce lively citrus freshness, complemented by the resinous, aromatic character of elemi. Orange blossom softens the transition into a warm heart of cinnamon and cardamom. At its core, rich bourbon vanilla merges with sweet praline and smooth guaiac wood, creating a creamy, refined fragrance that balances gourmand richness with polished woody depth.',
+      'Bright Italian bergamot and mandarin introduce lively citrus freshness, complemented by resinous elemi. Orange blossom softens the transition into warm cinnamon and cardamom, grounded in rich Madagascar bourbon vanilla, sweet praline, and guaiac wood.',
     inspiration: 'Rendition of Parfums de Marly Althaïr',
     isBestSeller: false,
     isFeatured: true,
@@ -265,9 +265,9 @@ export const PRODUCTS = [
       { size: '50ml', price: 2000, inStock: true },
     ],
     notes: {
-      top: ['Bergamot', 'Mandarin', 'Elemi'],
-      heart: ['Orange Blossom', 'Cinnamon', 'Cardamom'],
-      base: ['Bourbon Vanilla', 'Guaiac Wood', 'Praline'],
+      top: ['Italian Bergamot', 'Mandarin', 'Elemi Resin'],
+      heart: ['Orange Blossom', 'Ceylon Cinnamon', 'Cardamom'],
+      base: ['Bourbon Vanilla', 'Guaiac Wood', 'Sweet Praline', 'Musk'],
     },
     images: ['/images/Vanilla Candy.png'],
   },
