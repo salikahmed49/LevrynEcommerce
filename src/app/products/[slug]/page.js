@@ -275,7 +275,7 @@ export default function ProductDetailPage({ params }) {
               {product.subtitle}
             </p>
 
-            {/* Price display */}
+            {/* Price & Savings Display */}
             <div
               style={{
                 display: 'flex',
@@ -289,43 +289,52 @@ export default function ProductDetailPage({ params }) {
             >
               <span
                 style={{
-                  fontSize: '1.8rem',
-                  fontWeight: 600,
+                  fontSize: '2rem',
+                  fontWeight: 700,
                   color: 'var(--color-primary)',
                   fontFamily: 'var(--font-sans)',
+                  letterSpacing: '-0.02em',
                 }}
               >
                 Rs. {currentSizeObj.price.toLocaleString()}
               </span>
+
               {currentSizeObj.originalPrice && (
-                <span
-                  style={{
-                    fontSize: '1.2rem',
-                    color: 'var(--color-text-muted)',
-                    textDecoration: 'line-through',
-                    fontWeight: 400,
-                  }}
-                >
-                  Rs. {currentSizeObj.originalPrice.toLocaleString()}
-                </span>
+                <>
+                  <span
+                    style={{
+                      fontSize: '1.25rem',
+                      color: 'var(--color-text-muted)',
+                      textDecoration: 'line-through',
+                      fontWeight: 400,
+                    }}
+                  >
+                    Rs. {currentSizeObj.originalPrice.toLocaleString()}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: '0.8rem',
+                      fontWeight: 700,
+                      color: '#b91c1c',
+                      backgroundColor: '#fee2e2',
+                      padding: '3px 10px',
+                      borderRadius: 'var(--radius-sm)',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.04em',
+                    }}
+                  >
+                    Save Rs. {(currentSizeObj.originalPrice - currentSizeObj.price).toLocaleString()} (
+                    {Math.round(
+                      ((currentSizeObj.originalPrice - currentSizeObj.price) /
+                        currentSizeObj.originalPrice) *
+                        100
+                    )}
+                    % OFF)
+                  </span>
+                </>
               )}
-              {currentSizeObj.originalPrice && (
-                <span
-                  style={{
-                    fontSize: '0.75rem',
-                    fontWeight: 700,
-                    color: '#b91c1c',
-                    backgroundColor: '#fee2e2',
-                    padding: '2px 8px',
-                    borderRadius: 'var(--radius-sm)',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.04em',
-                  }}
-                >
-                  Sale
-                </span>
-              )}
-              <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
+
+              <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginLeft: 'auto' }}>
                 Tax included
               </span>
             </div>

@@ -169,60 +169,64 @@ export default function ProductCard({ product }) {
           {product.subtitle}
         </p>
 
-        {/* Price & Action Area: Clean responsive layout on both mobile & desktop */}
+        {/* Price & Action Area: Clean responsive layout with zero awkward stacking */}
         <div
           className="product-card-footer"
           style={{
             marginTop: 'auto',
-            paddingTop: '10px',
+            paddingTop: '12px',
             borderTop: '1px solid var(--color-border-subtle)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             gap: '8px',
-            flexWrap: 'wrap',
           }}
         >
-          <div style={{ minWidth: '70px', lineHeight: 1.15 }}>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', flexWrap: 'wrap' }}>
+          {/* Price Container */}
+          <div style={{ flex: '1 1 auto', minWidth: 0, lineHeight: 1.2 }}>
+            <span
+              style={{
+                fontSize: 'clamp(0.95rem, 2.8vw, 1.15rem)',
+                fontWeight: 700,
+                color: 'var(--color-primary)',
+                fontFamily: 'var(--font-sans)',
+                display: 'block',
+                letterSpacing: '-0.01em',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Rs. {defaultSizeObj.price.toLocaleString()}
+            </span>
+            {defaultSizeObj.originalPrice && (
               <span
                 style={{
-                  fontSize: 'clamp(0.95rem, 2.2vw, 1.15rem)',
-                  fontWeight: 700,
-                  color: 'var(--color-primary)',
-                  fontFamily: 'var(--font-sans)',
+                  fontSize: '0.75rem',
+                  color: 'var(--color-text-muted)',
+                  textDecoration: 'line-through',
+                  fontWeight: 500,
                   display: 'block',
-                  letterSpacing: '-0.01em',
+                  whiteSpace: 'nowrap',
+                  marginTop: '1px',
                 }}
               >
-                Rs. {defaultSizeObj.price.toLocaleString()}
+                Rs. {defaultSizeObj.originalPrice.toLocaleString()}
               </span>
-              {defaultSizeObj.originalPrice && (
-                <span
-                  style={{
-                    fontSize: '0.8rem',
-                    color: 'var(--color-text-muted)',
-                    textDecoration: 'line-through',
-                    fontWeight: 500,
-                  }}
-                >
-                  Rs. {defaultSizeObj.originalPrice.toLocaleString()}
-                </span>
-              )}
-            </div>
+            )}
           </div>
 
+          {/* Quick Add Button */}
           <button
             onClick={handleQuickAdd}
             type="button"
             className="btn btn-primary"
             style={{
-              padding: '6px 12px',
+              flexShrink: 0,
+              padding: '6px 11px',
               fontSize: '0.78rem',
               fontWeight: 600,
               gap: '4px',
               borderRadius: 'var(--radius-sm)',
-              height: '32px',
+              height: '34px',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -232,11 +236,11 @@ export default function ProductCard({ product }) {
           >
             {added ? (
               <>
-                <Check size={13} /> Added
+                <Check size={14} /> Added
               </>
             ) : (
               <>
-                <Plus size={13} /> Add
+                <Plus size={14} /> Add
               </>
             )}
           </button>
