@@ -56,6 +56,15 @@ export const metadata = {
       'Artisanal Extrait de Parfum handcrafted in Pakistan. Master renditions starting from Rs. 1,500.',
     images: ['https://www.shoplevryn.com/og-image.jpg'],
   },
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/icon', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-icon', sizes: '192x192', type: 'image/png' },
+    ],
+  },
   robots: {
     index: true,
     follow: true,
