@@ -39,7 +39,7 @@ export const PRODUCTS = [
       heart: ['Tonka Bean', 'Ambroxan', 'Geranium Flower'],
       base: ['Madagascar Vanilla', 'Virginian Cedar', 'Atlas Cedar', 'Vetiver', 'Oakmoss'],
     },
-    images: ['/images/cupid.webp'],
+    images: ['/images/cupid-bottle.webp'],
   },
   {
     id: 'lev-seventh-petals',
